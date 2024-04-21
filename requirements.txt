@@ -1,2 +1,3 @@
 rich
 pytz
+prompt-toolkit
