@@ -18,13 +18,13 @@ DrShell is readily installable on both Linux and Termux environments using just 
 ### For Linux:
 
 ```bash
-wget https://example.com/drshell_x.y.z_all.deb -O drshell.deb && sudo dpkg -i drshell.deb
+wget https://github.com/DrDataYE/DrShell/releases/download/drshell/drshell_1.0.1_all_linux_beta.deb -O drshell_1.0.1_all_linux_beta.deb && sudo dpkg -i drshell_1.0.1_all_linux_beta.deb
 ```
 
 ### For Termux:
 
 ```bash
-wget https://example.com/drshell_x.y.z_all_termux.deb -O drshell.deb && dpkg -i drshell.deb
+pkg install wget -y &&pkg install python3 -y &&wget https://github.com/DrDataYE/DrShell/releases/download/drshell/drshell_1.0.1_all_termux_beta.deb -O drshell_1.0.1_all_termux_beta.deb && dpkg -i drshell_1.0.1_all_termux_beta.deb
 ```
 
 ## Usage 🚀
