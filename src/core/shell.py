@@ -6,12 +6,10 @@ import argparse
 from textwrap import wrap
 import threading
 from cmd import Cmd
-import time
 from rich.console import Console
 from rich.table import Table
 from rich import print
 from rich.live import Live
-import select
 from prompt_toolkit import PromptSession
 from prompt_toolkit.history import InMemoryHistory
 from prompt_toolkit.auto_suggest import AutoSuggestFromHistory
