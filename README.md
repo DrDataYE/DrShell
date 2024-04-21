@@ -58,19 +58,19 @@ options:
 Here are some snapshots to guide you through the various phases of using DrShell:
 
 - **Launching DrShell**:
-  ![Launching DrShell](path_to_image)
+  ![Launching DrShell](./images/1.jpg)
 
 - **Choosing a Payload**:
-  ![Choosing a Payload](path_to_image)
+  ![Choosing a Payload](./images/2.jpg)
 
 - **Setting Payload Options and Launching**:
-  ![Payload Settings](path_to_image)
+  ![Payload Settings](./images/3.jpg)
 
 - **New Session Notification**:
-  ![New Session](path_to_image)
+  ![New Session](./images/4.jpg)
 
 - **Interacting with a Session**:
-  ![Session Interaction](path_to_image)
+  ![Session Interaction](./images/5.jpg)
 
 ## Legal Disclaimer ⚖️
 
