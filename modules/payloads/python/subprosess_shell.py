@@ -18,7 +18,7 @@ metadata = {
             "type": "address",
             "description": "Target host address for the reverse shell connection",
             "required": True,
-            "default": "172.25.82.128",
+            "default": "127.0.0.1",
         },
         "lport": {
             "type": "int",

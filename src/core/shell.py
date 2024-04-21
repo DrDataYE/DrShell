@@ -625,5 +625,4 @@ OPTIONS:
         
         # إشارة للخيوط للتوقف
         self.flag.set()
-        time.sleep(3)
         sys.exit()
