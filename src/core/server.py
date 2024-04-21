@@ -1,18 +1,17 @@
 import datetime
 import select
 import socket
-import struct
 import sys
 import threading
 from rich.console import Console
-from datetime import datetime
-import pytz
+
 from src.core.shell import DrShell
 
 app = DrShell()
 
 console = Console()
-
+from datetime import datetime
+import pytz
 
 def get_current_time(timezone_str='Asia/Riyadh'):
     # تعيين المنطقة الزمنية
@@ -25,7 +24,8 @@ def get_current_time(timezone_str='Asia/Riyadh'):
 
 
 
-
+import socket
+import struct
 
 def get_os_from_socket(client_socket):
     try:
@@ -56,17 +56,89 @@ def get_os_from_socket(client_socket):
 
 
 
+# def start_server(host, port, description):
+
+#     try:
+#         server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+#         server_socket.bind((host, port))
+#         server_socket.listen(5)
+#         console.print(
+#             f"[bold blue][+] [white not bold]Start Lisning in {host}:{port} on {description}."
+#         )
+        
+#         sessions = 0
+#         while not app.flag.is_set():
+#             client_socket, addr = server_socket.accept()
+#             # استخدم دالة get_os_from_socket لتحديد نوع نظام التشغيل
+#             os_type = get_os_from_socket(client_socket)
+#             sessions += 1
+#             uid = str(sessions)
+#             app.sessions[uid] = {
+#                 "socket": client_socket,
+#                 "address": addr[0],
+#                 "port": addr[1],
+#                 "device_type": os_type
+#             }
+#             console.print(f"\n[bold blue][*][/bold blue] Command shell session {uid} opened ({host}:{port} -> {addr[0]}:{addr[1]}) at {get_current_time()}", style="bold")
+#     except:
+#         console.print(
+#             f"[bold blue][*][/bold blue] [white]{host}:{port} is already listening.[/white]"
+#         )
+
+# def start_server(host, port, description):
+#     try:
+#         server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+#         server_socket.bind((host, port))
+#         server_socket.listen(5)
+#         console.print(
+#             f"[bold blue][+] [white not bold]Start Listening in {host}:{port} on {description}."
+#         )
+
+#         while not app.flag.is_set():
+#             client_socket, addr = server_socket.accept()
+#             if app.flag.is_set():
+#                 client_socket.close()
+#                 break
+#             # Process client_socket as usual
+#             os_type = get_os_from_socket(client_socket)
+#             uid = str(len(app['sessions']) + 1)
+#             app['sessions'][uid] = {
+#                 "socket": client_socket,
+#                 "address": addr[0],
+#                 "port": addr[1],
+#                 "device_type": os_type
+#             }
+#             console.print(f"\n[bold blue][*][/bold blue] Command shell session {uid} opened ({host}:{port} -> {addr[0]}:{addr[1]}) at {get_current_time()}", style="bold")
+    
+#     except Exception as e:
+#         console.print(
+#             f"[bold blue][*][/bold blue] Error: {e}"
+#         )
+#     finally:
+#         server_socket.close()
+#         console.print(
+#             f"[bold blue][*][/bold blue] Server on {host}:{port} has been shut down."
+#         )
+
+import socket
+import threading
+import select
+from rich.console import Console
+
+console = Console()
+
 
 
 
 def start_server(host, port, description):
-    server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    server_socket.bind((host, port))
-    server_socket.listen(5)
-    server_socket.setblocking(0)  # Make the socket non-blocking
-    console.print(f"[bold blue][+] [white not bold]Start Listening in {host}:{port} on {description}.")
-
     try:
+        server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        server_socket.bind((host, port))
+        server_socket.listen(5)
+        server_socket.setblocking(0)  # Make the socket non-blocking
+        console.print(f"[bold blue][+] [white not bold]Start Listening in {host}:{port} on {description}.")
+
+    
         while not app.flag.is_set():
             # Check for new connections, but don't block
             ready_to_read, _, _ = select.select([server_socket], [], [], 0.5)
@@ -80,16 +152,17 @@ def start_server(host, port, description):
                     "device_type": "Unknown"  # Assuming get_os_from_socket is defined elsewhere
                 }
                 console.print(f"\n[bold blue][*][/bold blue] Command shell session {uid} opened ({host}:{port} -> {addr[0]}:{addr[1]}) at {get_current_time()}")
-
-    except Exception as e:
-        console.print(f"[bold red][*][/bold red] Error: {e}")
-    finally:
         server_socket.close()
         console.print(f"[bold blue][*][/bold blue] Server on {host}:{port} has been shut down.")
         for session in app.sessions.values():
             session['socket'].close()
         for t in app.threads:
             t.join()
+
+    except:
+        console.print(
+            f"\n[bold blue][*][/bold blue] [white]{host}:{port} is already listening.[/white]\n"
+        )
 
 
 
