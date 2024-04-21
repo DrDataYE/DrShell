@@ -101,6 +101,8 @@ class DrShell(Cmd):
         self.data = {}
         self.flag = threading.Event()
         self.sessions = {}  
+        self.module = None
+        self.used_module = None
         self.threads = []
         self.readjson = self.S.readJsonFile()
         self.readDirs = self.S.readDirs()
@@ -257,6 +259,9 @@ class DrShell(Cmd):
                 self.select.append(str(var["keys"][0]))
 
     def do_use(self, args):
+        if args == "":
+            console.print("[red][-][/red] Invalid module index:")
+            return
         try:
             int(args)
             # self.moduleIndex = 0
@@ -434,6 +439,10 @@ OPTIONS:
         return completions
 
     def do_set(self, args=""):
+        if args == "":
+            print("\nNo module loaded.\n")
+            return
+        
         if self.module is not None:
             if args != "":
                 try:
@@ -447,22 +456,28 @@ OPTIONS:
             print("\nNo module loaded.\n")
             
     def complete_set(self, text, line, begidx, endidx):
-        """مكمل للأمر hello."""
-        dynamic_options = list(
-            self.module.metadata["options"].keys()
-        )  # الحصول على أسماء الخيارات من metadata
+        try:
+            """مكمل للأمر hello."""
+            # التأكد من وجود الوحدة والخيارات قبل المتابعة
+            if self.module is not None and "options" in self.module.metadata:
+                dynamic_options = list(self.module.metadata["options"].keys())  # الحصول على أسماء الخيارات من metadata
+                options = dynamic_options  # دمج القوائم ليست هناك حاجة في هذا السياق
+                
+                if text:
+                    completions = [option for option in options if option.startswith(text)]
+                else:
+                    completions = options
 
-        # دمج القوائم
-        options = dynamic_options
-
-        if text:
-            completions = [option for option in options if option.startswith(text)]
-        else:
-            completions = options
-
-        return completions
+                return completions
+            else:
+                return []  # إرجاع قائمة فارغة أو قيمة مناسبة عند عدم تحميل وحدة
+        except:
+            return []  # إرجاع قائمة فارغة أو قيمة مناسبة عند عدم تحميل وحدة
 
     def do_setg(self, args):
+        if args == "":
+            print("\nNo module loaded.\n")
+            return
         if self.module is not None:
             if args != "":
                 try:
@@ -483,6 +498,7 @@ OPTIONS:
         else:
             completions = options
         return completions
+
 
     def do_list_payloads(self, arg):
         "List all configured payloads"
