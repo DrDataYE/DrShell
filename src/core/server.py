@@ -4,14 +4,15 @@ import socket
 import sys
 import threading
 from rich.console import Console
-
+import struct
 from src.core.shell import DrShell
-
-app = DrShell()
-
-console = Console()
 from datetime import datetime
 import pytz
+
+
+app = DrShell()
+console = Console()
+
 
 def get_current_time(timezone_str='Asia/Riyadh'):
     # تعيين المنطقة الزمنية
@@ -24,8 +25,6 @@ def get_current_time(timezone_str='Asia/Riyadh'):
 
 
 
-import socket
-import struct
 
 def get_os_from_socket(client_socket):
     try:
@@ -54,12 +53,6 @@ def get_os_from_socket(client_socket):
 
 
 
-import socket
-import threading
-import select
-from rich.console import Console
-
-console = Console()
 
 
 
