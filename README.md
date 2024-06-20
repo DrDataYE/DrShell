@@ -38,7 +38,7 @@ drshell -h
 This command will show you all the options available:
 
 ```
-usage: main.py [-h] [-p PORT] [-x SIGNAL_PORT] [-n NETCAT_PORT] [-f FILE_SMUGGLER_PORT]
+usage: drshell [-h] [-p PORT] [-x SIGNAL_PORT] [-n NETCAT_PORT] [-f FILE_SMUGGLER_PORT]
 
 DrShell Command Line
 
