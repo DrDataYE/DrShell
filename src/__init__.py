@@ -38,7 +38,9 @@ def main():
             
                     By [link=https://github.com/DrDataYE]@DrDataYE[/link]
                     
-    \[[bold green]Info[/bold green]] Follow on [link=https://x.com/DrDataYE]Twitter[/link], [link=https://github.com/DrDataYE]GitHub[/link], [link=https://t.me/DrDataYE]Telegram[/link], [link=https://youtube.com/DrDataYE]Youtube[/link]
+    \[[bold green]Info[/bold green]] Follow on [link=https://x.com/DrDataYE]Twitter[/link],
+[link=https://t.me/Tryhacking]Telegram @Tryhacking[/link],
+[link=https://github.com/DrDataYE]GitHub[/link], [link=https://t.me/DrDataYE]Telegram[/link], [link=https://youtube.com/DrDataYE]Youtube[/link]
     \[[bold green]Info[/bold green]] Thank you!              
     """) 
     threading.Thread(target=start_server, args=("0.0.0.0", args.port, "Team Server")).start()
